@@ -20,12 +20,13 @@ chatbot = ChatBot(
 
 trainer = ListTrainer(chatbot)
 trainer.train([
-    "Hi", "Hello! How can I assist you today?",
-    "What can you do?", "I can calculate BMI, suggest workouts & diet plans, and answer health-related questions.",
-    "How to calculate BMI?", "I can do it for you! Just provide your weight (kg) and height (cm).",
-    "Give me a workout plan", "Do you prefer strength training, cardio, or a mix of both?",
-    "Give me a diet plan", "Are you looking for weight loss, muscle gain, or a balanced diet?",
-    "Goodbye", "Goodbye! Stay healthy!"
+    "Hi", "Hello! How can I assist you today? 😊",
+    "What can you do?", "I can calculate BMI, suggest workouts & diet plans, and answer health-related questions. How can I help you?",
+    "How to calculate BMI?", "I can do it for you! Just provide your weight (kg) and height (cm), and I'll calculate it for you.",
+    "Give me a workout plan", "Sure! Do you prefer strength training, cardio, or a mix of both? Let me know your preference.",
+    "Give me a diet plan", "Of course! Are you looking for weight loss, muscle gain, or a balanced diet? I can suggest accordingly.",
+    "Goodbye", "Goodbye! Stay healthy and take care! 😊",
+    "What is BMI?", "BMI stands for Body Mass Index. It's a measure of body fat based on your weight and height."
 ])
 
 # GPT-3 Based Chatbot
@@ -53,7 +54,7 @@ def get_bot_response():
     user_input = request.json.get("message", "").strip().lower()
 
     if not user_input:
-        return jsonify({"response": ""})  # Ignore empty messages
+        return jsonify({"response": "I didn't catch that. Could you please repeat?"})  # Improved empty message handling
 
     global user_data
 
@@ -121,8 +122,9 @@ def get_bot_response():
 
     response = chatbot.get_response(user_input)
 
-    if response.text.lower() in ["can you feel?", "i don't understand.", "sorry, what?", "hmm, i don't know."]:
-        response = "I'm not sure I understand. Could you rephrase?"
+    # Improved fallback response
+    if response.confidence < 0.5:  # Confidence threshold for fallback
+        response = "I'm not sure I understand that. Could you rephrase or ask something else?"
 
     return jsonify({"response": str(response)})
 

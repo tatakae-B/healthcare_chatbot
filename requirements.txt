@@ -1,2 +1,5 @@
 Flask==3.0.0
 gunicorn==21.2.0
+chatterbot==1.0.5
+transformers==4.31.0
+torch==2.0.1
