@@ -18,7 +18,7 @@ A Flask-based AI chatbot that provides workout and diet recommendations based on
 ### Setup
 1. Clone the repository:
    ```sh
-   git clone https://github.com/YOUR_USERNAME/healthcare_chatbot.git
+   git clone https://github.com/tatakae-B/healthcare_chatbot.git
    cd healthcare_chatbot
    ```
 2. Create a virtual environment (optional but recommended):
